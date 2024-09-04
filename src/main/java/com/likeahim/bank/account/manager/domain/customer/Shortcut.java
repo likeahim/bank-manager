@@ -1,4 +1,4 @@
-package com.likeahim.bank.account.manager.domain;
+package com.likeahim.bank.account.manager.domain.customer;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.likeahim.bank.account.manager.domain;
+package com.likeahim.bank.account.manager.domain.customer;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -24,7 +24,6 @@ public class Contact {
 
     @Column(name = "EMAIL")
     private String email;
-
 
     @OneToMany(mappedBy = "contact" , cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private List<Address> addresses;

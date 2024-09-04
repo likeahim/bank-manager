@@ -1,4 +1,4 @@
-package com.likeahim.bank.account.manager.domain;
+package com.likeahim.bank.account.manager.domain.customer;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -6,8 +6,6 @@ import jakarta.persistence.Table;
 import lombok.*;
 
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Getter
 @Setter
 @Entity
