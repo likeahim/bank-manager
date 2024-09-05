@@ -2,8 +2,10 @@ package com.likeahim.bank.account.manager.domain.customer;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
+@SuperBuilder
 @Getter
 @Setter
 @Entity

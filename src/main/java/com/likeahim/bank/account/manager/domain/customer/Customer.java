@@ -2,16 +2,16 @@ package com.likeahim.bank.account.manager.domain.customer;
 
 import com.likeahim.bank.account.manager.domain.account.Account;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
 import java.util.List;
 
+@SuperBuilder
 @NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@Setter
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Table(name = "CUSTOMERS")

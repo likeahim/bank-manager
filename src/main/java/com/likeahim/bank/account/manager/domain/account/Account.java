@@ -4,13 +4,16 @@ import com.likeahim.bank.account.manager.domain.customer.Customer;
 import com.likeahim.bank.account.manager.domain.transaction.AccountTransaction;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
+@SuperBuilder
 @NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@Setter
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Table(name = "ACCOUNTS")
@@ -41,7 +44,7 @@ public abstract class Account {
 
     @NonNull
     @Column(name = "TYPE", updatable = false)
-    private AccountType type;
+    private AccountType accountType;
 
     @Column(name = "FEE")
     private BigDecimal fee;
