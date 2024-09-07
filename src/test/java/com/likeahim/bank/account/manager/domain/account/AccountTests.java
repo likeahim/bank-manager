@@ -4,6 +4,7 @@ import com.likeahim.bank.account.manager.domain.customer.BusinessCustomer;
 import com.likeahim.bank.account.manager.domain.customer.RegularCustomer;
 import com.likeahim.bank.account.manager.repository.AccountRepository;
 import jakarta.transaction.Transactional;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,6 +13,7 @@ import org.springframework.test.context.ActiveProfiles;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,26 +25,45 @@ class AccountTests {
     @Autowired
     private AccountRepository accountRepository;
 
-    @Test
-    void shouldFetchDifferentLists() {
-        //Given
-        BusinessAccount businessAccount = BusinessAccount.builder()
+    private BusinessAccount businessAccount;
+    private RegularAccount regularAccount;
+
+    @BeforeEach
+    void setUp() {
+        businessAccount = BusinessAccount.builder()
                 .id(null)
                 .funds(new BigDecimal(10000))
-                .fee(new BigDecimal(10))
                 .accountType(AccountType.BUSINESS)
                 .created(LocalDate.now())
                 .customer(new BusinessCustomer())
                 .build();
 
-        RegularAccount regularAccount = RegularAccount.builder()
+        regularAccount = RegularAccount.builder()
                 .id(null)
                 .funds(new BigDecimal(10000))
-                .fee(new BigDecimal(10))
                 .accountType(AccountType.REGULAR)
                 .created(LocalDate.now())
                 .customer(new BusinessCustomer())
                 .build();
+    }
+    @Test
+    void shouldAssignFeeByAccountType() {
+        //Given
+        BusinessAccount businessSaved = accountRepository.save(businessAccount);
+        RegularAccount regularSaved = accountRepository.save(regularAccount);
+        Account business = accountRepository.findById(businessSaved.getId()).get();
+        Account regular = accountRepository.findById(regularSaved.getId()).get();
+        //When
+        double businessFee = business.getFee();
+        double regularFee = regular.getFee();
+        //Then
+        assertEquals(businessFee, 40.0, 0.001);
+        assertEquals(regularFee, 10.0, 0.001);
+    }
+
+    @Test
+    void shouldFetchDifferentLists() {
+        //Given
         accountRepository.save(businessAccount);
         accountRepository.save(regularAccount);
         //When

@@ -10,7 +10,7 @@ import lombok.*;
 @Setter
 @Entity
 @Table(name = "TRANSACTIONS")
-public abstract class AccountTransaction {
+public class AccountTransaction {
 
     @Id
     @GeneratedValue

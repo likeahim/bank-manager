@@ -1,5 +1,6 @@
 package com.likeahim.bank.account.manager.domain.account;
 
+import com.likeahim.bank.account.manager.strategy.fee.CreditFeeStrategy;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -29,4 +30,9 @@ public class CreditAccount extends Account {
 
     @Column(name = "TO_REPAID")
     private BigDecimal toRepaid;
+
+    @Override
+    public void assignFeeStrategy() {
+        super.setFeeStrategy(new CreditFeeStrategy());
+    }
 }

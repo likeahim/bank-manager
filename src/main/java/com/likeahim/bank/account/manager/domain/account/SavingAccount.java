@@ -1,5 +1,6 @@
 package com.likeahim.bank.account.manager.domain.account;
 
+import com.likeahim.bank.account.manager.strategy.fee.SavingFeeStrategy;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -26,4 +27,9 @@ public class SavingAccount extends Account {
     @NonNull
     @Column(name = "EXPIRE_DATE")
     private LocalDate expireDate;
+
+    @Override
+    public void assignFeeStrategy() {
+        super.setFeeStrategy(new SavingFeeStrategy());
+    }
 }

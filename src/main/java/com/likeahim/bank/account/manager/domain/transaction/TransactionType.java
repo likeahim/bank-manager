@@ -11,7 +11,6 @@ public enum TransactionType {
     CASH_OUT(3),
     CASH_IN(4),
     BLIK(5),
-    CREDIT_IN(6),
-    BIG_TRANSFER(7);
+    CREDIT_IN(6);
     private final int value;
 }

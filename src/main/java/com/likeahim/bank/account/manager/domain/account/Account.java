@@ -2,6 +2,7 @@ package com.likeahim.bank.account.manager.domain.account;
 
 import com.likeahim.bank.account.manager.domain.customer.Customer;
 import com.likeahim.bank.account.manager.domain.transaction.AccountTransaction;
+import com.likeahim.bank.account.manager.strategy.fee.FeeStrategy;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -18,10 +19,6 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Table(name = "ACCOUNTS")
 public abstract class Account {
-
-  //#########################
-//AllArgsConstructor - where?
-
 
     @Id
     @GeneratedValue
@@ -47,8 +44,26 @@ public abstract class Account {
     private AccountType accountType;
 
     @Column(name = "FEE")
-    private BigDecimal fee;
+    private double fee;
 
     @OneToMany(mappedBy = "executor", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private List<AccountTransaction> transactions;
+
+    @Transient
+    private FeeStrategy feeStrategy;
+
+    @PrePersist
+    @PreUpdate
+    public void prePersistOrUpdate() {
+        assignFeeStrategy();
+        applyFee();
+    }
+
+    public void applyFee() {
+        if (feeStrategy != null) {
+            this.fee = feeStrategy.calculateFee(this);
+        }
+    }
+
+    public abstract void assignFeeStrategy();
 }
