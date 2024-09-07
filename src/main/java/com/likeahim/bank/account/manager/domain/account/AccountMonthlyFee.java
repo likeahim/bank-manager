@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum AccountFee {
+public enum AccountMonthlyFee {
     BUSINESS(40.0),
     CREDIT(8.0),
     OFFICIAL(10.0),

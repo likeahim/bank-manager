@@ -20,12 +20,14 @@ public class Recipient {
     private Long id;
 
     @NonNull
+    @Column(name = "IBAN")
     private String accountNumber;
 
     private String fullName;
     private String fullAddress;
     private String shortName;
 
+    @Builder.Default
     @OneToMany(mappedBy = "recipient", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<AccountTransaction> transactions = new ArrayList<>();
 }

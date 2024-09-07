@@ -1,6 +1,6 @@
 package com.likeahim.bank.account.manager.domain.account;
 
-import com.likeahim.bank.account.manager.strategy.fee.BusinessFeeStrategy;
+import com.likeahim.bank.account.manager.strategy.fee.monthly.BusinessMonthlyFeeStrategy;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.*;
@@ -16,6 +16,6 @@ public class BusinessAccount extends Account {
 
     @Override
     public void assignFeeStrategy() {
-        super.setFeeStrategy(new BusinessFeeStrategy());
+        super.setMonthlyFeeStrategy(new BusinessMonthlyFeeStrategy());
     }
 }

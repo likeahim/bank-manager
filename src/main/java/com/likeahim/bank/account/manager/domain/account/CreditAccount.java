@@ -1,6 +1,6 @@
 package com.likeahim.bank.account.manager.domain.account;
 
-import com.likeahim.bank.account.manager.strategy.fee.CreditFeeStrategy;
+import com.likeahim.bank.account.manager.strategy.fee.monthly.CreditMonthlyFeeStrategy;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -21,7 +21,6 @@ public class CreditAccount extends Account {
     @Column(name = "CREDIT_AMOUNT")
     private BigDecimal creditAmount;
 
-    @NonNull
     @Column(name = "PERCENTAGE")
     private double percentage;
 
@@ -33,6 +32,6 @@ public class CreditAccount extends Account {
 
     @Override
     public void assignFeeStrategy() {
-        super.setFeeStrategy(new CreditFeeStrategy());
+        super.setMonthlyFeeStrategy(new CreditMonthlyFeeStrategy());
     }
 }

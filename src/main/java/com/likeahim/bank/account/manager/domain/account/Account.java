@@ -1,8 +1,10 @@
 package com.likeahim.bank.account.manager.domain.account;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.likeahim.bank.account.manager.domain.customer.Customer;
 import com.likeahim.bank.account.manager.domain.transaction.AccountTransaction;
-import com.likeahim.bank.account.manager.strategy.fee.FeeStrategy;
+import com.likeahim.bank.account.manager.strategy.fee.monthly.MonthlyFeeStrategy;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -14,7 +16,6 @@ import java.util.List;
 @SuperBuilder
 @NoArgsConstructor
 @Getter
-@Setter
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Table(name = "ACCOUNTS")
@@ -24,7 +25,8 @@ public abstract class Account {
     @GeneratedValue
     private Long id;
 
-    @NonNull
+//    @NonNull
+    @Setter
     @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn(name = "CUSTOMER_ID")
     private Customer customer;
@@ -32,6 +34,7 @@ public abstract class Account {
     @Column(name = "FUNDS")
     private BigDecimal funds;
 
+    @Setter
     @Column(name = "CASH_OUT_LIMIT")
     private BigDecimal cashOutLimit;
 
@@ -43,14 +46,16 @@ public abstract class Account {
     @Column(name = "TYPE", updatable = false)
     private AccountType accountType;
 
-    @Column(name = "FEE")
-    private double fee;
+    @Setter
+    @Column(name = "MONTHLY_FEE")
+    private double monthlyFee;
 
     @OneToMany(mappedBy = "executor", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private List<AccountTransaction> transactions;
 
     @Transient
-    private FeeStrategy feeStrategy;
+    @Setter
+    private MonthlyFeeStrategy monthlyFeeStrategy;
 
     @PrePersist
     @PreUpdate
@@ -60,8 +65,8 @@ public abstract class Account {
     }
 
     public void applyFee() {
-        if (feeStrategy != null) {
-            this.fee = feeStrategy.calculateFee(this);
+        if (monthlyFeeStrategy != null) {
+            this.monthlyFee = monthlyFeeStrategy.assignMonthlyFee(this);
         }
     }
 

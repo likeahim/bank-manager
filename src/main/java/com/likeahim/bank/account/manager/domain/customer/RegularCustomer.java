@@ -15,18 +15,15 @@ import lombok.experimental.SuperBuilder;
 @Table(name = "REGULAR_CUSTOMERS")
 public class RegularCustomer extends Customer {
 
-    @NonNull
-    @Column(name = "FIRSTNAME")
+    @Column(name = "FIRSTNAME", nullable = false)
     private String firstName;
 
-    @NonNull
-    @Column(name = "LASTNAME")
+    @Column(name = "LASTNAME", nullable = false)
     private String lastName;
 
     @Column(name = "PESEL", unique = true)
     private String pesel;
 
-    @NonNull
-    @Column(name = "ID_NUMBER", unique = true)
+    @Column(name = "ID_NUMBER", unique = true, nullable = false)
     private String idNumber;
 }

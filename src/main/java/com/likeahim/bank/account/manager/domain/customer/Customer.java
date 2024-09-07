@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @SuperBuilder
@@ -31,8 +32,9 @@ public abstract class Customer {
     @JoinColumn(name = "CONTACT_ID")
     private Contact contact;
 
+    @Builder.Default
     @OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    private List<Account> accounts;
+    private List<Account> accounts = new ArrayList<>();
 
     @NonNull
     @Column(name = "TYPE")

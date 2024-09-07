@@ -12,6 +12,7 @@ import lombok.*;
 @Table(name = "ADDRESSES")
 public class Address {
 
+    @Setter(AccessLevel.NONE)
     @Id
     @GeneratedValue
     private Long id;
@@ -34,6 +35,7 @@ public class Address {
     @Column(name = "COUNTRY")
     private String country; //change to enum with available options
 
+    @Setter(AccessLevel.NONE)
     @ManyToOne
     @JoinColumn(name = "CONTACT_ID")
     private Contact contact;
