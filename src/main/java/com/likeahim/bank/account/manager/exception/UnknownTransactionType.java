@@ -1,4 +1,4 @@
 package com.likeahim.bank.account.manager.exception;
 
-public class UnknownTransactionType extends Exception {
+public class UnknownTransactionType extends RuntimeException {
 }
