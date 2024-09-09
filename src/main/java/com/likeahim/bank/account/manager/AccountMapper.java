@@ -19,23 +19,23 @@ public class AccountMapper {
     private final TransactionRepository transactionRepository;
 
     public Account mapToEntity(AccountDto accountDto) throws AccountDoesNotExistException, CustomerNotFoundException, NoSuchAccountTypeException {
-        switch (AccountType.fromValue(accountDto.getAccountType())) {
-            case BUSINESS: return mapToBusinessAccount(accountDto);
-            case CREDIT: return mapToCreditAccount((CreditAccountDto) accountDto);
-            case OFFICIAL: return mapToOfficialAccount(accountDto);
-            case REGULAR: return mapToRegularAccount((RegularAccountDto) accountDto);
-            case SAVING: return mapToSavingAccount((SavingAccountDto) accountDto);
+        switch (accountDto.getAccountType()) {
+            case 1: return mapToRegularAccount((RegularAccountDto) accountDto);
+            case 2: return mapToBusinessAccount(accountDto);
+            case 3: return mapToOfficialAccount(accountDto);
+            case 4: return mapToCreditAccount((CreditAccountDto) accountDto);
+            case 5: return mapToSavingAccount((SavingAccountDto) accountDto);
             default: throw new AccountDoesNotExistException();
         }
     }
 
     public AccountDto mapToDto(Account account) {
-        switch (account.getAccountType()) {
-            case BUSINESS: return mapToBusinessDto((BusinessAccount) account);
-            case CREDIT: return mapToCreditDto((CreditAccount) account);
-            case OFFICIAL: return mapToOfficialDto((OfficialAccount) account);
-            case REGULAR: return mapToRegularDto((RegularAccount) account);
-            case SAVING: return mapToSavingDto((SavingAccount) account);
+        switch (account.getAccountType().getValue()) {
+            case 1: return mapToRegularDto((RegularAccount) account);
+            case 2: return mapToBusinessDto((BusinessAccount) account);
+            case 3: return mapToOfficialDto((OfficialAccount) account);
+            case 4: return mapToCreditDto((CreditAccount) account);
+            case 5: return mapToSavingDto((SavingAccount) account);
             default: throw new UnknownTransactionType();
         }
     }

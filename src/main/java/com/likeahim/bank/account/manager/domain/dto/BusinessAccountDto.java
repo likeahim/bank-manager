@@ -12,8 +12,9 @@ import java.util.List;
 
 @Getter
 @Setter
-@AllArgsConstructor
 public class BusinessAccountDto extends AccountDto {
-    public BusinessAccountDto(Long id, Long id1, BigDecimal funds, BigDecimal cashOutLimit, @NonNull LocalDate created, @NonNull int accountType, double monthlyFee, List<Long> list) {
+    public BusinessAccountDto(Long id, Long customerId, BigDecimal funds, BigDecimal cashOutLimit,
+                              LocalDate created, int accountType, double monthlyFee, List<Long> transactions) {
+        super(id, customerId, funds, cashOutLimit, created, accountType, monthlyFee, transactions);
     }
 }

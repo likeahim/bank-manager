@@ -1,5 +1,7 @@
 package com.likeahim.bank.account.manager.domain.account;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.likeahim.bank.account.manager.exception.NoSuchAccountTypeException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

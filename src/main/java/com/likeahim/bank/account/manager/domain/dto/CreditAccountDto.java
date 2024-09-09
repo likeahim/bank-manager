@@ -11,7 +11,6 @@ import java.util.List;
 
 @Getter
 @Setter
-@AllArgsConstructor
 public class CreditAccountDto extends AccountDto {
     private BigDecimal creditAmount;
     private double percentage;
